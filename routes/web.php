@@ -14,3 +14,6 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/job/', 'JobController@list');
+Route::get('/job/{id}/show', 'JobController@show');
