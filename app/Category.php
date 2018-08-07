@@ -7,4 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     public $timestamps = false;
+
+    public function job()
+    {
+        return $this->belongsTo('App\Job');
+    }
 }
