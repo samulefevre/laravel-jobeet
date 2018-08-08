@@ -7,7 +7,7 @@
         <tr class="">
         <td class="location">{{ $job->location }}</td>
         <td class="position">
-            <a href="">
+            <a href="{{ route('job.show', [$job->id]) }}">
             {{ $job->position }}
             </a>
         </td>

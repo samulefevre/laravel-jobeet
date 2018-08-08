@@ -20,4 +20,11 @@ class JobController extends Controller
 
         return view('job/show', ['job' => $job]);
     }
+
+    public function edit($id)
+    {
+        $job = DB::table('jobs')->where('id', $id)->first();        
+
+        return view('job/edit', ['job' => $job]);
+    }
 }
