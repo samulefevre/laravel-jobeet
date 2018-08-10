@@ -13,11 +13,12 @@ class JobController extends Controller
     public function index()
     {
         $categories = Category::getWithJobs();
+        $max_jobs_on_homepage = 10;
 
         foreach($categories as $category)
         {
-            $category->setActiveJobs(Job::getActiveJobs($category->id));
-            $category->setMoreJobs(Job::countActiveJobs($category->id));
+            $category->setActiveJobs(Job::getActiveJobs($category->id, $max_jobs_on_homepage));
+            $category->setMoreJobs(Job::countActiveJobs($category->id) - $max_jobs_on_homepage);
         }
 
         return view('job/index', ['categories' => $categories]);

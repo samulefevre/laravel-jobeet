@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Category extends Model
 {
@@ -27,9 +28,7 @@ class Category extends Model
 
     public function scopeGetWithJobs($query)
     {
-        $date = date('Y-m-d H:i:s', time());
-        //->where('jobs.expires_at', '>', $date)
-        return $query->leftJoin('jobs', 'categories.id', '=', 'jobs.category_id')->select('categories.id', 'categories.name')->where('jobs.expires_at', '>', $date)->groupBy('categories.id')->get();
+        return $query->leftJoin('jobs', 'categories.id', '=', 'jobs.category_id')->select('categories.id', 'categories.name')->where('jobs.expires_at', '>', Carbon::now())->groupBy('categories.id')->get();
     }
 
     public function setActiveJobs($jobs)

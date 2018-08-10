@@ -12,6 +12,9 @@ class JobSeeder extends Seeder
      */
     public function run()
     {
+        $now = Carbon::now();
+        $plus30j = Carbon::now()->addDays(30);
+
         DB::table('jobs')->insert([
             'category_id' => 2,
             'type' => 'full-time',
@@ -26,9 +29,9 @@ class JobSeeder extends Seeder
             'is_activated' => true,
             'token' => 'job_sensio_labs',
             'email' => 'job@example.com',
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
-            'expires_at' => Carbon::create('2019','07','08')->toDateTimeString()
+            'created_at' => $now,
+            'updated_at' => $now,
+            'expires_at' => $plus30j
         ]);
 
         DB::table('jobs')->insert([
@@ -45,9 +48,9 @@ class JobSeeder extends Seeder
             'is_activated' => true,
             'token' => 'job_extreme_sensio',
             'email' => 'job@example.com',
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
-            'expires_at' => Carbon::create('2020','08','06')->toDateTimeString()
+            'created_at' => $now,
+            'updated_at' => $now,
+            'expires_at' => $plus30j
         ]);
 
         for($i = 1; $i <= 130; $i++)
@@ -66,9 +69,9 @@ class JobSeeder extends Seeder
                 'is_activated' => true,
                 'token' => 'job_'.$i,
                 'email' => 'job@example.com',
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
-                'expires_at' => Carbon::create('2020','08','06')->toDateTimeString()
+                'created_at' => $now,
+                'updated_at' => $now,
+                'expires_at' => $plus30j
             ]);
         }
 
