@@ -53,7 +53,7 @@ class JobSeeder extends Seeder
             'expires_at' => $plus30j
         ]);
 
-        for($i = 1; $i <= 130; $i++)
+        for($i = 1; $i <= 300; $i++)
         {
             DB::table('jobs')->insert([
                 'category_id' => random_int (1, 4),

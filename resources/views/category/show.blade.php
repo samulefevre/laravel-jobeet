@@ -41,7 +41,7 @@
   @endif
  
   <div class="pagination_desc">
-    <strong></strong> jobs in this category
+    <strong>{{ $total_jobs }}</strong> jobs in this category
  
     @if ($last_page > 1)
       - page <strong>{{ $current_page }}/{{ $last_page }}</strong>

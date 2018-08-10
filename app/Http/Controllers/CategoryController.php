@@ -15,7 +15,7 @@ class CategoryController extends Controller
         $category = Category::where('name', $slug)->first();
 
         $total_jobs = Job::countActiveJobs($category->id);
-        $jobs_per_page = 10;
+        $jobs_per_page = 20;
         $last_page = ceil($total_jobs / $jobs_per_page);
         $previous_page = $page > 1 ? $page - 1 : 1;
         $next_page = $page < $last_page ? $page + 1 : $last_page;
