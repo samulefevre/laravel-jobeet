@@ -11,10 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('layout');
-});
-
+Route::get('/', 'JobController@index');
 Route::get('/job/', 'JobController@list');
-Route::get('/job/{id}/show', 'JobController@show')->name('job.show');
+Route::get('/job/{company}/{location}/{id}/{position}', 'JobController@show')->name('job.show');
 Route::get('/job/{id}/edit', 'JobController@edit')->name('job.edit');
+
+Route::get('/category/{slug}/{page}', 'CategoryController@show')->name('category.show');

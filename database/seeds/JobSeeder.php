@@ -50,5 +50,27 @@ class JobSeeder extends Seeder
             'expires_at' => Carbon::create('2020','08','06')->toDateTimeString()
         ]);
 
+        for($i = 1; $i <= 130; $i++)
+        {
+            DB::table('jobs')->insert([
+                'category_id' => random_int (1, 4),
+                'type' => 'full-time',
+                'company' => 'Company '.$i,
+                'logo' => 'extreme-sensio.gif',
+                'url' => 'http://www.company'.$i.'.com/',
+                'position' => 'Web Developer',
+                'location' => 'Paris, France',
+                'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
+                'how_to_apply' => 'Send your resume to lorem.ipsum [at] dolor.sit',
+                'is_public' => true,
+                'is_activated' => true,
+                'token' => 'job_'.$i,
+                'email' => 'job@example.com',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+                'expires_at' => Carbon::create('2020','08','06')->toDateTimeString()
+            ]);
+        }
+
     }
 }

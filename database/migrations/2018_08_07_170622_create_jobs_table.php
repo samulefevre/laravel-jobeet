@@ -15,9 +15,8 @@ class CreateJobsTable extends Migration
     {
         Schema::create('jobs', function (Blueprint $table) {
             $table->increments('id');
-            $table->timestamps();
-            $table->unsignedInteger('category_id');
-            $table->foreign('category_id')->references('id')->on('categories');
+            $table->timestamps();            
+            $table->integer('category_id')->unsigned()->index();
             $table->string('type');
             $table->string('company');
             $table->string('logo');
