@@ -92,7 +92,14 @@ class JobController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $job = Job::find($id);
+        $job->company = $request->get('company');
+        $job->description = $request->get('description');
+        $job->how_to_apply = $request->get('how_to_apply');
+        $job->email = $request->get('email');
+        $job->save();
+        //return redirect('job/{$job->company}/{$job->location}/{$job->id}/{$job->position}');
+        return redirect()->route('job.show', ['company' => str_slug($job->company), 'location' => str_slug($job->location), 'id' => $job->id, 'position' => str_slug($job->position)]);
     }
 
     /**
