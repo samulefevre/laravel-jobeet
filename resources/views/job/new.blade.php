@@ -20,13 +20,6 @@
         <div class="row">
             <div class="col-md-12"></div>
             <div class="form-group col-md-12">
-                <label for="Name">Position:</label>
-                <input type="text" class="form-control" name="position" value=""/>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12"></div>
-            <div class="form-group col-md-12">
                 <label for="Name">Type:</label>
                 <select class="form-control" name="type">
                     @foreach ($job->types as $key => $value)
@@ -36,19 +29,12 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-12"></div>
-            <div class="form-group col-md-12">
-                <label for="Name">Location:</label>
-                <input type="text" class="form-control" name="location" value=""/>
-            </div>
-        </div>
-        <div class="row">
           <div class="col-md-12"></div>
           <div class="form-group col-md-12">
             <label for="Name">Company:</label>
             <input type="text" class="form-control" name="company" value=""/>
           </div>
-        </div>        
+        </div>
         <div class="row">
           <div class="col-md-12"></div>
           <div class="form-group col-md-12">
@@ -64,6 +50,20 @@
           </div>
         </div>
         <div class="row">
+            <div class="col-md-12"></div>
+            <div class="form-group col-md-12">
+                <label for="Name">Position:</label>
+                <input type="text" class="form-control" name="position" value=""/>
+            </div>
+        </div>        
+        <div class="row">
+            <div class="col-md-12"></div>
+            <div class="form-group col-md-12">
+                <label for="Name">Location:</label>
+                <input type="text" class="form-control" name="location" value=""/>
+            </div>
+        </div>
+        <div class="row">
           <div class="col-md-12"></div>
           <div class="form-group col-md-12">
             <label for="Name">Description:</label>
@@ -75,6 +75,14 @@
           <div class="form-group col-md-12">
             <label for="Name">How to apply:</label>
             <textarea rows="4" cols="50" class="form-control" name="how_to_apply"></textarea>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12"></div>
+          <div class="form-group col-md-12">
+            <label for="Name">Public:</label>
+            <input type="checkbox" class="form-control" name="is_public" value="is_public"/>
+            <br /> Whether the job can also be published on affiliate websites or not.
           </div>
         </div>
         <div class="row">

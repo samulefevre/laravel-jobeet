@@ -27,6 +27,7 @@ class JobObserver
     {
         $job->setTokenValue();
         $job->setExpiresAtValue();
+        $job->is_activated = 1;
     }
 
     /**

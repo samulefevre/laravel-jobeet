@@ -24,8 +24,8 @@
  
             <div class="search">
               <h2>Ask for a job</h2>
-              <form action="" method="get">
-                <input type="text" name="keywords" id="search_keywords" />
+              <form action="{{ action('JobController@search') }}" method="get">
+                <input type="text" name="q" id="search_keywords" />
                 <input type="submit" value="search" />
                 <div class="help">
                   Enter some keywords (city, country, position, ...)

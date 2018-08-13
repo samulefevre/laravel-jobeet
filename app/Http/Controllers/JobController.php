@@ -67,8 +67,7 @@ class JobController extends Controller
         $job->position = $request->get('position');
         $job->type = $request->get('type');
         $job->location = $request->get('location');        
-        $job->is_public = '1';
-        $job->is_activated = '1';        
+        $job->is_public = $request->has('is_public') ? 1 : 0;              
         $job->company = $request->get('company');
         $job->url = $request->get('url');
         if($request->file('logo')) { $job->logo = $request->file('logo')->store('logos'); }
@@ -77,7 +76,7 @@ class JobController extends Controller
         $job->email = $request->get('email');
         $job->save();
  
-        return redirect()->route('job.index');
+        return redirect()->route('job.index')->with('status', 'Job created!');
     }
 
     /**
@@ -124,7 +123,7 @@ class JobController extends Controller
         $job->position = $request->get('position');
         $job->type = $request->get('type');
         $job->location = $request->get('location');
-        $job->token = 'token';
+        $job->is_public = $request->has('is_public') ? 1 : 0;        
         $job->company = $request->get('company');
         if($request->file('logo')) { $job->logo = $request->file('logo')->store('logos'); }
         $job->description = $request->get('description');
@@ -149,5 +148,31 @@ class JobController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function search(Request $request)
+    {
+        // First we define the error message we are going to show if no keywords
+        // existed or if no results found.
+        $error = ['error' => 'No results found, please try with different keywords.'];
+
+        // Making sure the user entered a keyword.
+        if($request->has('q')) {
+
+            // Using the Laravel Scout syntax to search the jobs table.
+            $jobs = Job::search($request->get('q'))->where('is_activated', 1)->get();           
+
+            // If there are results return them, if none, return the error message.
+            if($jobs->count()) {
+                return view('job/search', ['jobs' => $jobs]);
+            } else {
+                return $error;
+            }
+
+        }
+
+        // Return the error message if no keywords existed
+        return $error;
+        
     }
 }

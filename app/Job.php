@@ -2,12 +2,16 @@
 
 namespace App;
 
+use Laravel\Scout\Searchable;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Password;
 
+
 class Job extends Model
 {
+    use Searchable;
+
     public function category()
     {
         return $this->belongsTo('App\Category');
