@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'JobController@index');
+Route::get('/', 'JobController@index')->name('job.index');
 
 //Route::get('/job/', 'JobController@list');
 //Route::get('/job/{company}/{location}/{id}/{position}', 'JobController@show')->name('job.show');
@@ -19,6 +19,6 @@ Route::get('/', 'JobController@index');
 
 Route::get('/category/{slug}/{page}', 'CategoryController@show')->name('category.show');
 
-route::resource('job','JobController');
+Route::resource('job','JobController');
 Route::get('/job/', 'JobController@list');
-Route::get('/job/{company}/{location}/{id}/{position}', 'JobController@show')->name('job.show');
+Route::get('/job/{id}/{company}/{location}/{position}', 'JobController@show')->name('job.show');

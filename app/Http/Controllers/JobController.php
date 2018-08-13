@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\DB;
 use App\Category;
 use App\Job;
 
+use Carbon\Carbon;
+
 class JobController extends Controller
 {
     /**
@@ -43,7 +45,13 @@ class JobController extends Controller
      */
     public function create()
     {
-        //
+        $job = new Job();
+        $categories = Category::get();
+        
+        return view('job/new', [
+            'job' => $job,          
+            'categories' => $categories
+        ]);
     }
 
     /**
@@ -54,7 +62,24 @@ class JobController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $job = new Job();
+        $job->category_id = $request->get('category');
+        $job->position = $request->get('position');
+        $job->type = $request->get('type');
+        $job->location = $request->get('location');
+        $job->token = 'token';
+        $job->is_public = '1';
+        $job->is_activated = '1';
+        $job->expires_at = Carbon::now()->addDays(30);
+        $job->company = $request->get('company');
+        $job->url = $request->get('url');
+        if($request->file('logo')) { $job->logo = $request->file('logo')->store('logos'); }
+        $job->description = $request->get('description');
+        $job->how_to_apply = $request->get('how_to_apply');
+        $job->email = $request->get('email');
+        $job->save();
+ 
+        return redirect()->route('job.index');
     }
 
     /**
@@ -63,7 +88,7 @@ class JobController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($company, $location, $id, $position)
+    public function show($id, $company, $location, $position)
     {
         $job = Job::find($id);       
 
@@ -78,9 +103,13 @@ class JobController extends Controller
      */
     public function edit($id)
     {
-        $job = Job::find($id);       
+        $job = Job::find($id);
+        $categories = Category::get();
 
-        return view('job/edit', ['job' => $job]);
+        return view('job/edit', [
+                'job' => $job,
+                'categories' => $categories
+            ]);
     }
 
     /**
@@ -93,13 +122,24 @@ class JobController extends Controller
     public function update(Request $request, $id)
     {
         $job = Job::find($id);
+        $job->category_id = $request->get('category');
+        $job->position = $request->get('position');
+        $job->type = $request->get('type');
+        $job->location = $request->get('location');
+        $job->token = 'token';
         $job->company = $request->get('company');
+        if($request->file('logo')) { $job->logo = $request->file('logo')->store('logos'); }
         $job->description = $request->get('description');
         $job->how_to_apply = $request->get('how_to_apply');
         $job->email = $request->get('email');
         $job->save();
-        //return redirect('job/{$job->company}/{$job->location}/{$job->id}/{$job->position}');
-        return redirect()->route('job.show', ['company' => str_slug($job->company), 'location' => str_slug($job->location), 'id' => $job->id, 'position' => str_slug($job->position)]);
+                
+        return redirect()->action('JobController@show', [
+            'id' => $job->id,
+            'company' => str_slug($job->company),
+            'location' => str_slug($job->location),            
+            'position' => str_slug($job->position)
+        ])->with('status', 'Job updated!');
     }
 
     /**

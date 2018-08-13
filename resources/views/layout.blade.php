@@ -18,7 +18,7 @@
             <div class="post">
               <h2>Ask for people</h2>
               <div>
-                <a href="">Post a Job</a>
+                <a href="{{ route('job.create') }}">Post a Job</a>
               </div>
             </div>
  
@@ -39,8 +39,13 @@
       
 
       <div id="content">        
- 
+     
         <div class="content">
+            @if (session('status'))
+                <div class="alert alert-success">
+                    {{ session('status') }}
+                </div>
+            @endif
             @yield('content')
         </div>
       </div>

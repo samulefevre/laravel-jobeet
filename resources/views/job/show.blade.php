@@ -13,8 +13,8 @@
     @if ($job->logo)
     <div class="logo">
         <a href="{{ $job->url }}">
-        <img src="/uploads/jobs/{{ $job->logo }}"
-            alt="{{ $job->company }} logo" />
+        <img src="{{ asset('storage/'.$job->logo) }}"
+            alt="{{ $job->company }} logo" class="company-logo" />
         </a>
     </div>
     @endif
