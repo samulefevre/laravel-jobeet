@@ -154,7 +154,7 @@ class JobController extends Controller
     {
         // First we define the error message we are going to show if no keywords
         // existed or if no results found.
-        $error = ['error' => 'No results found, please try with different keywords.'];
+        $error = 'No results found, please try with different keywords.';
 
         // Making sure the user entered a keyword.
         if($request->has('q')) {
@@ -166,13 +166,13 @@ class JobController extends Controller
             if($jobs->count()) {
                 return view('job/search', ['jobs' => $jobs]);
             } else {
-                return $error;
+                return redirect()->route('job.index')->with('status', $error);
             }
 
         }
 
         // Return the error message if no keywords existed
-        return $error;
+        return redirect()->route('job.index')->with('status', $error);
         
     }
 }
