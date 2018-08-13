@@ -1,2 +1,3 @@
 # laravel-jobeet
-jobeet with laravel 5.6
+Jobeet with laravel 5.6.
+- Search functionality using Laravel Scout (with Algolia driver)
