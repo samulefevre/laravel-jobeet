@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Password;
 
 class Job extends Model
 {
@@ -46,6 +47,11 @@ class Job extends Model
         return $query->count();
     }
 
+    public function getExpiresAt()
+    {
+        return $this->expires_at;
+    }
+
     public function setExpiresAtValue()
     {
         if(!$this->getExpiresAt())
@@ -62,6 +68,19 @@ class Job extends Model
     public static function getTypeValues()
     {
         return array_keys(self::getTypes());
-    }    
+    }
+
+    public function getToken()
+    {
+        return $this->token;
+    }
+
+    public function setTokenValue()
+    {
+        if(!$this->getToken())
+        {
+            $this->token = Password::getRepository()->createNewToken();
+        }
+    }
 
 }

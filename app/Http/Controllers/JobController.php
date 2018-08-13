@@ -66,11 +66,9 @@ class JobController extends Controller
         $job->category_id = $request->get('category');
         $job->position = $request->get('position');
         $job->type = $request->get('type');
-        $job->location = $request->get('location');
-        $job->token = 'token';
+        $job->location = $request->get('location');        
         $job->is_public = '1';
-        $job->is_activated = '1';
-        $job->expires_at = Carbon::now()->addDays(30);
+        $job->is_activated = '1';        
         $job->company = $request->get('company');
         $job->url = $request->get('url');
         if($request->file('logo')) { $job->logo = $request->file('logo')->store('logos'); }
