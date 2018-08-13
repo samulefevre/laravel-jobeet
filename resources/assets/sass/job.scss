@@ -55,8 +55,16 @@
 
 .company-logo
 {
-  width: 200px;
-  height: 200px;
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+}
+
+.laravel-logo
+{
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
 }
 
 #job_actions

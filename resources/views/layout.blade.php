@@ -54,8 +54,8 @@
         <div class="content">
           <span class="symfony">
             <img src="{{ asset('/images/jobeet-mini.png') }}" />
-            powered by <a href="http://www.symfony.com/">
-              <img src="{{ asset('/images/symfony.gif') }}" alt="symfony framework" />
+            powered by <a href="https:/laravel.com/" target="_blank">
+              <img src="{{ asset('/images/laravel-logo.png') }}" class="laravel-logo" alt="symfony framework" />
             </a>
           </span>
           <ul>
