@@ -10,7 +10,7 @@
             <div class="col-md-12"></div>
             <div class="form-group col-md-12">
                 <label for="Name">Category:</label>
-                <select class="form-control" name="category">
+                <select class="form-control" name="category_id">
                     @foreach ($categories as $category)
                         <option value="{{ $category->id }}" @if($job->category->id === $category->id) selected="selected" @endif>{{ $category->name }}</option>
                     @endforeach
@@ -82,7 +82,7 @@
           <div class="col-md-12"></div>
           <div class="form-group col-md-12">
             <label for="Name">Public:</label>
-            <input type="checkbox" class="form-control" name="is_public" value="is_public"/>
+            <input type="checkbox" class="form-control" name="is_public" value="is_public" @if($job->is_public === 1) checked="checked" @endif />
             <br /> Whether the job can also be published on affiliate websites or not.
           </div>
         </div>

@@ -63,7 +63,7 @@ class JobController extends Controller
     public function store(Request $request)
     {
         $job = new Job();
-        $job->category_id = $request->get('category');
+        $job->category_id = $request->get('category_id');
         $job->position = $request->get('position');
         $job->type = $request->get('type');
         $job->location = $request->get('location');        
@@ -119,7 +119,7 @@ class JobController extends Controller
     public function update(Request $request, $id)
     {
         $job = Job::find($id);
-        $job->category_id = $request->get('category');
+        $job->category_id = $request->get('category_id');
         $job->position = $request->get('position');
         $job->type = $request->get('type');
         $job->location = $request->get('location');
