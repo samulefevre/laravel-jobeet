@@ -23,3 +23,7 @@ Route::resource('job','JobController');
 Route::get('/job/', 'JobController@list');
 Route::get('/job/{id}/{company}/{location}/{position}', 'JobController@show')->name('job.show');
 Route::get('/search/', 'JobController@search');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
