@@ -62,6 +62,13 @@ class JobController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate(request(),[
+            'company' => 'required',
+            'url' => 'required',
+            'position' => 'required',
+            'location' => 'required'
+        ]);
+        
         $job = new Job();
         $job->category_id = $request->get('category_id');
         $job->position = $request->get('position');
