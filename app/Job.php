@@ -19,38 +19,16 @@ class Job extends Model
         return $this->belongsTo('App\Category');
     }
 
-    public function scopeGetActiveJobs($query, $category_id = null, $max = null, $offset = null)
+    public function scopeGetActiveJobs($query, $category_id = null, $jobs_per_page = null)
     {       
-        $query->where('expires_at', '>', Carbon::now())->orderBy('expires_at', 'desc');
-
-        if($max)
-        {
-            $query->take($max);
-        }
-
-        if($offset)
-        {
-            $query->offset($offset);
-        }
-
+        $query->where('expires_at', '>', Carbon::now())->where('is_activated', 1)->orderBy('expires_at', 'desc');
+        
         if($category_id)
         {
             $query->where('category_id', $category_id);
         }
 
-        return $query->get();
-    }
-
-    public function scopeCountActiveJobs($query, $category_id = null)
-    {
-        $query->where('expires_at', '>', Carbon::now())->where('is_activated', 1);
-
-        if($category_id)
-        {
-            $query->where('category_id', $category_id);
-        }
-
-        return $query->count();
+        return $query->paginate($jobs_per_page);
     }
 
     public function getExpiresAt()

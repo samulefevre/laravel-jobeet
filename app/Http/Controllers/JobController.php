@@ -24,18 +24,17 @@ class JobController extends Controller
 
         foreach($categories as $category)
         {
-            $category->setActiveJobs(Job::getActiveJobs($category->id, $max_jobs_on_homepage));
-            $category->setMoreJobs(Job::countActiveJobs($category->id) - $max_jobs_on_homepage);
+            $category->setActiveJobs(Job::getActiveJobs($category->id, $max_jobs_on_homepage));            
         }
 
-        return view('job/index', ['categories' => $categories]);
+        return view('job/index', compact('categories', 'max_jobs_on_homepage'));
     }
 
     public function list()
     {
         $jobs = DB::table('jobs')->get();
 
-        return view('job/list', ['jobs' => $jobs]);
+        return view('job/list', compact('jobs'));
     }
 
     /**
@@ -48,10 +47,7 @@ class JobController extends Controller
         $job = new Job();
         $categories = Category::get();
         
-        return view('job/new', [
-            'job' => $job,          
-            'categories' => $categories
-        ]);
+        return view('job/new', compact('job', 'categories'));
     }
 
     /**
@@ -66,7 +62,10 @@ class JobController extends Controller
             'company' => 'required',
             'url' => 'required',
             'position' => 'required',
-            'location' => 'required'
+            'location' => 'required',
+            'description' => 'required',
+            'how_to_apply' => 'required',
+            'email' => 'required'
         ]);
         
         $job = new Job();
@@ -96,7 +95,7 @@ class JobController extends Controller
     {
         $job = Job::find($id);       
 
-        return view('job/show', ['job' => $job]);
+        return view('job/show', compact('job'));
     }
 
     /**
@@ -110,10 +109,7 @@ class JobController extends Controller
         $job = Job::find($id);
         $categories = Category::get();
 
-        return view('job/edit', [
-                'job' => $job,
-                'categories' => $categories
-            ]);
+        return view('job/edit', compact('job', 'categories'));
     }
 
     /**

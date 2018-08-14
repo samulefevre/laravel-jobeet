@@ -8,9 +8,7 @@ use Carbon\Carbon;
 class Category extends Model
 {
     public $timestamps = false;
-
-    private $active_jobs;
-    private $more_jobs;
+    private $active_jobs;    
 
     public function jobs()
     {
@@ -21,11 +19,7 @@ class Category extends Model
     {
         return str_slug($this->name);
     }
-
-    public function scopeActiveJobs($query){
-        return $query->get();
-    }
-
+    
     public function scopeGetWithJobs($query)
     {
         return $query->leftJoin('jobs', 'categories.id', '=', 'jobs.category_id')->select('categories.id', 'categories.name')->where('jobs.expires_at', '>', Carbon::now())->groupBy('categories.id')->get();
@@ -39,16 +33,6 @@ class Category extends Model
     public function getActiveJobsAttribute()
     {
         return $this->active_jobs;
-    }
-
-    public function setMoreJobs($jobs)
-    {
-        $this->more_jobs = $jobs >=  0 ? $jobs : 0;
-    }
-    
-    public function getMoreJobsAttribute()
-    {
-        return $this->more_jobs;
-    }
+    }    
 
 }
