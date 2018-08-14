@@ -32,7 +32,7 @@
   </div>
   <div class="form-group">
     <label for="Name">Url:</label>
-    <input type="text" class="form-control" name="url" value=""/>
+    <input type="text" class="form-control" name="url" value="" placeholder="https://example.com"/>
   </div>
   <div class="form-group">
     <label for="Name">Position:</label>
@@ -57,7 +57,7 @@
   </div>
   <div class="form-group">    
     <label for="Name">Email:</label>
-    <input type="text" class="form-control" name="email" value=""/>   
+    <input type="text" class="form-control" name="email" value="" placeholder="email@example.com"/>   
   </div>
   <div class="form-group">   
     <button type="submit" class="btn btn-success">New</button>   

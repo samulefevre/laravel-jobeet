@@ -47,7 +47,7 @@
           <div class="col-md-12"></div>
           <div class="form-group col-md-12">
             <label for="Name">Url:</label>
-            <input type="text" class="form-control" name="url" value="{{ $job->url }}"/>
+            <input type="text" class="form-control" name="url" value="{{ $job->url }}" placeholder="https://example.com"/>
           </div>
         </div>
         <div class="row">
@@ -90,7 +90,7 @@
           <div class="col-md-12"></div>
           <div class="form-group col-md-12">
             <label for="Name">Email:</label>
-            <input type="text" class="form-control" name="email" value="{{ $job->email }}"/>
+            <input type="text" class="form-control" name="email" value="{{ $job->email }}" placeholder="email@example.com" />
           </div>
         </div>
         <div class="row">

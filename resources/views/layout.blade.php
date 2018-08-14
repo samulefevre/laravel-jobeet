@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Jobeet - Your best job board</title>
+    <title>@yield('title', 'Jobeet - Your best job board')</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />    
     <link rel="stylesheet" href="{{ asset('/css/app.css') }}" type="text/css" media="all" />    
     <link rel="shortcut icon" href="{{ asset('/images/favicon.ico') }}" />	
@@ -24,8 +24,8 @@
  
             <div class="search">
               <h2>Ask for a job</h2>
-              <form action="{{ action('JobController@search') }}" method="get">
-                <input type="text" name="q" id="search_keywords" />
+              <form action="{{ action('JobController@search') }}" method="get">              
+                <input type="text" name="query" id="search_keywords" />
                 <input type="submit" value="search" />
                 <div class="help">
                   Enter some keywords (city, country, position, ...)

@@ -1,5 +1,9 @@
 @extends('../layout')
 
+@section('title')
+    {{ $job->company }} is looking for a {{ $job->position }}
+@endsection
+
 @section('content')
 @if ($job)
 <div id="job">
@@ -12,7 +16,7 @@
 
     @if ($job->logo)
     <div class="logo">
-        <a href="{{ $job->url }}">
+        <a href="https://{{ $job->url }}">
         <img src="{{ asset('storage/'.$job->logo) }}"
             alt="{{ $job->company }} logo" class="company-logo" />
         </a>
@@ -28,7 +32,7 @@
     <p class="how_to_apply">{{ $job->how_to_apply }}</p>
 
     <div class="meta">
-    <small>posted on {{ $job->created_at }}</small>
+    <small>posted on {{ $job->created_at->toFormattedDateString() }}</small>
     </div>
 
     <div style="padding: 20px 0">

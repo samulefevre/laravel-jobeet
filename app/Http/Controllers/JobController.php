@@ -74,9 +74,9 @@ class JobController extends Controller
         $job->type = $request->get('type');
         $job->location = $request->get('location');        
         $job->is_public = $request->has('is_public') ? 1 : 0;              
-        $job->company = $request->get('company');
-        $job->url = $request->get('url');
+        $job->company = $request->get('company');        
         if($request->file('logo')) { $job->logo = $request->file('logo')->store('logos'); }
+        $job->url = $request->get('url');
         $job->description = $request->get('description');
         $job->how_to_apply = $request->get('how_to_apply');
         $job->email = $request->get('email');
@@ -129,6 +129,7 @@ class JobController extends Controller
         $job->is_public = $request->has('is_public') ? 1 : 0;        
         $job->company = $request->get('company');
         if($request->file('logo')) { $job->logo = $request->file('logo')->store('logos'); }
+        $job->url = $request->get('url');
         $job->description = $request->get('description');
         $job->how_to_apply = $request->get('how_to_apply');
         $job->email = $request->get('email');
@@ -157,19 +158,18 @@ class JobController extends Controller
     {
         // First we define the error message we are going to show if no keywords
         // existed or if no results found.
-        $error = 'No results found, please try with different keywords.';
-
+        $error = 'No results found, please try with different keywords.';        
         // Making sure the user entered a keyword.
-        if($request->has('q')) {
+        if($request->has('query')) {
 
             // Using the Laravel Scout syntax to search the jobs table.
-            $jobs = Job::search($request->get('q'))->where('is_activated', 1)->get();           
+            $jobs = Job::search($request->get('query'))->where('is_activated', 1)->paginate(20);           
 
             // If there are results return them, if none, return the error message.
             if($jobs->count()) {
-                return view('job/search', ['jobs' => $jobs]);
+                return view('job/search', compact('q','jobs'));
             } else {
-                return redirect()->route('job.index')->with('status', $error);
+                return redirect()->route('job.index', compact('q'))->with('status', $error);
             }
 
         }
@@ -178,4 +178,5 @@ class JobController extends Controller
         return redirect()->route('job.index')->with('status', $error);
         
     }
+    
 }
