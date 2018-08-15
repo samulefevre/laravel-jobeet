@@ -160,6 +160,8 @@ class JobController extends Controller
     public function publish($token)
     {
         $job = Job::where('token', $token)->first();
+        $job->publish();
+        $job->save();
         
         return redirect()->back()->with('status', 'Your job is now online for 30 days.');        
     }

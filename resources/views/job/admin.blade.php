@@ -1,7 +1,7 @@
 <div id="job_actions">
     <h3>Admin</h3>
     <ul>
-    @if(!$job->isActivated)
+    @if(!$job->is_activated)
       <li><a href="{{ action('JobController@edit', [$job->token]) }}">Edit</a></li>
       <li>
         <form action="{{ action('JobController@publish', [$job->token]) }}" method="post">        
@@ -17,12 +17,12 @@
         <button type="submit" onclick="if(!confirm('Are you sure?')) { return false; }">Delete</button>
       </form>
     </li>
-    @if($job->isActivated)
-      <li @if(job.expiresSoon) class="expires_soon" @endif >
+    @if($job->is_activated)
+      <li @if($job->expiresSoon) class="expires_soon" @endif >
         @if ($job->isExpired)
           Expired
         @else
-          Expires in <strong>{{ $job->getDaysBeforeExpires }}</strong> days
+          Expires in <strong>{{ $job->daysBeforeExpires }}</strong> days
         @endif
  
         @if($job->expiresSoon)

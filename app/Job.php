@@ -12,7 +12,7 @@ class Job extends Model
 {
     use Searchable;
 
-    protected $guarded = [];
+    protected $guarded = [];    
 
     public function category()
     {
@@ -51,6 +51,7 @@ class Job extends Model
         return $this->expires_at;
     }
 
+    
     public function setExpiresAtValue()
     {
         if(!$this->getExpiresAt())
@@ -81,5 +82,47 @@ class Job extends Model
             $this->token = Password::getRepository()->createNewToken();
         }
     }
+
+    public function setIsActivated($isActivated)
+    {
+        $this->is_activated = $isActivated;
+    
+        return $this;
+    }
+
+    public function publish()
+    {
+        $this->setIsActivated(true);
+    }
+
+    public function getDaysBeforeExpiresAttribute()
+    {
+        return Carbon::now()->diffInDays($this->getExpiresAt());
+    }
+
+    public function isExpiredAttribute()
+    {
+        return $this->getDaysBeforeExpiresAttribute() < 0;
+    }
+
+    public function expiresSoonAttribute()
+    {
+        return $this->getDaysBeforeExpiresAttribute() < 5;
+    }
+
+    public function extend()
+    {
+        if (!$this->expiresSoonAttribute())
+        {
+            return false;
+        }
+        $this->setExpiresAtValue();
+        return true;
+    }
+
+   
+    
+
+    
 
 }
