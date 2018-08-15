@@ -19,7 +19,7 @@ class JobController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $categories = Category::getWithJobs();
         $max_jobs_on_homepage = 10;
@@ -27,6 +27,10 @@ class JobController extends Controller
         foreach($categories as $category)
         {
             $category->setActiveJobs(Job::getActiveJobs($category->id, $max_jobs_on_homepage));            
+        }
+
+        if($request->query('_format') == 'atom') {
+            return view('job/feed', compact('categories', 'max_jobs_on_homepage'));
         }
 
         return view('job/index', compact('categories', 'max_jobs_on_homepage'));

@@ -60,7 +60,7 @@
           </span>
           <ul>
             <li><a href="">About Jobeet</a></li>
-            <li class="feed"><a href="">Full feed</a></li>
+            <li class="feed"><a href="{{ route('job.index', ['_format' => 'atom']) }}">Full feed</a></li>
             <li><a href="">Jobeet API</a></li>
             <li class="last"><a href="">Affiliates</a></li>
           </ul>
