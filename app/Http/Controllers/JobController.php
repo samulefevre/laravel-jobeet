@@ -32,13 +32,6 @@ class JobController extends Controller
         return view('job/index', compact('categories', 'max_jobs_on_homepage'));
     }
 
-    public function list()
-    {
-        $jobs = DB::table('jobs')->get();
-
-        return view('job/list', compact('jobs'));
-    }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -96,9 +89,9 @@ class JobController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($token)
     {
-        $job = Job::find($id);
+        $job = Job::where('token', $token)->first();
         $categories = Category::get();
 
         return view('job/edit', compact('job', 'categories'));
@@ -111,9 +104,9 @@ class JobController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(JobRequest $request, $id)
+    public function update(JobRequest $request, $token)
     {
-        $job = Job::find($id);
+        $job = Job::where('token', $token)->first();
         $job->category_id = $request->get('category_id');
         $job->position = $request->get('position');
         $job->type = $request->get('type');
@@ -144,6 +137,24 @@ class JobController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  string  $token
+     * @return \Illuminate\Http\Response
+     */
+    public function preview(Request $request, $token, $company, $location, $position)
+    {
+        $job = Job::where('token', $token)->first();        
+        return view('job/show', compact('job'));
+    }
+
+    public function publish()
+    {
+
     }
 
     public function search(Request $request)

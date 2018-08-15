@@ -19,6 +19,21 @@ class Job extends Model
         return $this->belongsTo('App\Category');
     }
 
+    public function getCompanySlugAttribute()
+    {
+        return str_slug($this->company);
+    }
+
+    public function getLocationSlugAttribute()
+    {
+        return str_slug($this->location);
+    }
+
+    public function getPositionSlugAttribute()
+    {
+        return str_slug($this->position);
+    }
+
     public function scopeGetActiveJobs($query, $category_id = null, $jobs_per_page = null)
     {       
         $query->where('expires_at', '>', Carbon::now())->where('is_activated', 1)->orderBy('expires_at', 'desc');

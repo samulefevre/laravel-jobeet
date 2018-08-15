@@ -17,12 +17,14 @@ Route::get('/', 'JobController@index')->name('job.index');
 //Route::get('/job/{company}/{location}/{id}/{position}', 'JobController@show')->name('job.show');
 //Route::get('/job/{id}/edit', 'JobController@edit')->name('job.edit');
 
-Route::get('/category/{id}/{slug}/', 'CategoryController@show')->name('category.show');
+Route::get('/category/{id}/{slug}', 'CategoryController@show')->name('category.show');
 
 Route::resource('job','JobController');
-Route::get('/job/', 'JobController@list');
 Route::get('/job/{id}/{company}/{location}/{position}', 'JobController@show')->name('job.show');
 Route::get('/search/', 'JobController@search');
+Route::get('/job/', 'JobController@list');
+Route::get('/job/{token}/{company}/{location}/{position}', 'JobController@preview')->name('job.preview');
+Route::get('/job/publish/', 'JobController@publish');
 
 Auth::routes();
 

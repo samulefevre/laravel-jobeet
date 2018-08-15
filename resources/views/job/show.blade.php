@@ -1,11 +1,14 @@
 @extends('../layout')
 
 @section('title')
-    {{ $job->company }} is looking for a {{ $job->position }}
+    @if ($job) {{ $job->company }} is looking for a {{ $job->position }} @endif
 @endsection
 
 @section('content')
 @if ($job)
+@if (Request::route('token'))
+    @include('job.admin', ['job' => $job])
+@endif
 <div id="job">
     <h1>{{ $job->company }}</h1>
     <h2>{{ $job->location }}</h2>
@@ -34,12 +37,7 @@
     <div class="meta">
     <small>posted on {{ $job->created_at->toFormattedDateString() }}</small>
     </div>
-
-    <div style="padding: 20px 0">
-    <a href="{{ route('job.edit', [$job->id]) }}">
-        Edit
-    </a>
-    </div>
+    
 </div>
 @else
     <div class="error"><p>This page no longer exist.</p></div>

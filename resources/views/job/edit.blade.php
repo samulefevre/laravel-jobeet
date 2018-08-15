@@ -2,7 +2,7 @@
 
 @section('content')
 <h1>Job edit</h1>
-  <form action="{{ action('JobController@update', [$job->id]) }}" method="post" enctype="multipart/form-data">
+  <form action="{{ action('JobController@update', [$job->token]) }}" method="post" enctype="multipart/form-data">
     @method('put')
     @csrf
     @include('layouts.errors')
