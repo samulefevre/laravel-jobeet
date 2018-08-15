@@ -30,7 +30,7 @@ class JobController extends Controller
         }
 
         if($request->query('_format') == 'atom') {
-            return view('job/feed', compact('categories', 'max_jobs_on_homepage'));
+            return view('job/feed', compact('categories'));
         }
 
         return view('job/index', compact('categories', 'max_jobs_on_homepage'));
