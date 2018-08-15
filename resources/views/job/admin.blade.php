@@ -2,16 +2,16 @@
     <h3>Admin</h3>
     <ul>
     @if(!$job->is_activated)
-      <li><a href="{{ action('JobController@edit', [$job->token]) }}">Edit</a></li>
+      <li><a href="{{ action('JobController@edit', ['token' => $job->token]) }}">Edit</a></li>
       <li>
-        <form action="{{ action('JobController@publish', [$job->token]) }}" method="post">        
+        <form action="{{ action('JobController@publish', ['token' => $job->token]) }}" method="post">        
             @csrf  
           <button type="submit">Publish</button>
         </form>
       </li>
     @endif
     <li>
-      <form action="{{ action('JobController@destroy', [$job->token]) }}" method="post">
+      <form action="{{ action('JobController@destroy', ['token' => $job->token]) }}" method="post">
         @method('delete')
         @csrf
         <button type="submit" onclick="if(!confirm('Are you sure?')) { return false; }">Delete</button>
@@ -26,7 +26,7 @@
         @endif
  
         @if($job->expiresSoon)
-          <form action="{{ action('JobController@extend', [$job->token]) }}" method="post">
+          <form action="{{ action('JobController@extend', ['token' => $job->token]) }}" method="post">
             @csrf
             <button type="submit">Extend</button> for another 30 days
           </form>
@@ -34,7 +34,7 @@
       </li>
     @else
       <li>
-        [Bookmark this <a href="{{ action('JobController@preview', [$job->token, $job->companyslug, $job->locationslug, $job->positionslug]) }}">URL</a> to manage this job in the future.]
+        [Bookmark this <a href="{{ action('JobController@preview', ['token' => $job->token, 'company' => $job->companySlug, 'location' => $job->locationSlug, 'position' => $job->positionSlug]) }}">URL</a> to manage this job in the future.]
       </li>
     @endif
     </ul>

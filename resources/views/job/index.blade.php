@@ -6,15 +6,15 @@
       <div class="category_{{ $category->slug }}">
         <div class="category">
           <div class="feed">
-            <a href="{{ route('category.show', [$category->id, $category->slug]) }}">Feed</a>
+            <a href="{{ route('category.show', ['id' => $category->id, 'slug' => $category->slug]) }}">Feed</a>
           </div>
-          <h1><a href="{{ route('category.show', [$category->id, $category->slug]) }}">{{ $category->name }}</a></h1>
+          <h1><a href="{{ route('category.show', ['id' => $category->id, 'slug' => $category->slug]) }}">{{ $category->name }}</a></h1>
         </div>        
         @include('job.list', ['jobs' => $category->activeJobs])
  
         @if ($category->name)
             <div class="more_jobs">
-              and <a href="{{ route('category.show', [$category->id, $category->slug]) }}">{{ $category->activeJobs->total() - $max_jobs_on_homepage }}</a>
+              and <a href="{{ route('category.show', ['id' => $category->id, 'slug' => $category->slug]) }}">{{ $category->activeJobs->total() - $max_jobs_on_homepage }}</a>
               more...
             </div>
         @endif
