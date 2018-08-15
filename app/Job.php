@@ -105,18 +105,18 @@ class Job extends Model
         return $this->getDaysBeforeExpiresAttribute() < 0;
     }
 
-    public function expiresSoonAttribute()
+    public function getExpiresSoonAttribute()
     {
         return $this->getDaysBeforeExpiresAttribute() < 5;
     }
 
     public function extend()
     {
-        if (!$this->expiresSoonAttribute())
+        if (!$this->getExpiresSoonAttribute())
         {
             return false;
         }
-        $this->setExpiresAtValue();
+        $this->expires_at = Carbon::now()->addDays(30);
         return true;
     }
 

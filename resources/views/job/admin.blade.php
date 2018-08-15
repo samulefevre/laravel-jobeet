@@ -26,7 +26,7 @@
         @endif
  
         @if($job->expiresSoon)
-          <form action="{{ action('JobController@extend', [$job-->token]) }}" method="post">
+          <form action="{{ action('JobController@extend', [$job->token]) }}" method="post">
             @csrf
             <button type="submit">Extend</button> for another 30 days
           </form>

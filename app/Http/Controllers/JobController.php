@@ -83,7 +83,10 @@ class JobController extends Controller
      */
     public function show($id, $company, $location, $position)
     {
-        $job = Job::find($id);       
+        $job = Job::find($id);
+        if (!$job) {           
+            return redirect()->route('job.index')->with('status', 'Unable to find the Job.');
+        }    
 
         return view('job/show', compact('job'));
     }
@@ -153,17 +156,39 @@ class JobController extends Controller
      */
     public function preview(Request $request, $token, $company, $location, $position)
     {
-        $job = Job::where('token', $token)->first();        
+        $job = Job::where('token', $token)->first();
+        if (!$job) {           
+            return redirect()->back()->with('status', 'Unable to find the Job.');
+        }    
         return view('job/show', compact('job'));
     }
 
     public function publish($token)
     {
         $job = Job::where('token', $token)->first();
+        if (!$job) {           
+            return redirect()->back()->with('status', 'Unable to find the Job.');
+        } 
+
         $job->publish();
         $job->save();
         
         return redirect()->back()->with('status', 'Your job is now online for 30 days.');        
+    }
+
+    public function extend($token)
+    {
+        $job = Job::where('token', $token)->first();
+        if (!$job) {           
+            return redirect()->back()->with('status', 'Unable to find the Job.');
+        } 
+           
+        if (!$job->extend()) {            
+            return redirect()->back()->with('status', 'Unable to extend the Job.');
+        }
+        $job->save();                
+        $expires_at = Carbon::now()->addDays(30)->toFormattedDateString();
+        return redirect()->back()->with('status', 'Your job validity has been extended until '.$expires_at.'.' );         
     }
 
     public function search(Request $request)
