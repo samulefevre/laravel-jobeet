@@ -10,6 +10,8 @@ use App\Job;
 
 use Carbon\Carbon;
 
+use App\Http\Requests\JobRequest;
+
 class JobController extends Controller
 {
     /**
@@ -56,18 +58,8 @@ class JobController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(JobRequest $request)
     {
-        $this->validate(request(),[
-            'company' => 'required',
-            'url' => 'required',
-            'position' => 'required',
-            'location' => 'required',
-            'description' => 'required',
-            'how_to_apply' => 'required',
-            'email' => 'required'
-        ]);
-        
         $job = new Job();
         $job->category_id = $request->get('category_id');
         $job->position = $request->get('position');
@@ -119,7 +111,7 @@ class JobController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(JobRequest $request, $id)
     {
         $job = Job::find($id);
         $job->category_id = $request->get('category_id');

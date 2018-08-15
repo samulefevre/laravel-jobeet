@@ -5,6 +5,7 @@
   <form action="{{ action('JobController@update', [$job->id]) }}" method="post" enctype="multipart/form-data">
     @method('put')
     @csrf
+    @include('layouts.errors')
     <div id="job_form">
         <div class="row">
             <div class="col-md-12"></div>
