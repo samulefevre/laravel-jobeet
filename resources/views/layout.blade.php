@@ -4,7 +4,8 @@
     <title>@yield('title', 'Jobeet - Your best job board')</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />    
     <link rel="stylesheet" href="{{ asset('/css/app.css') }}" type="text/css" media="all" />    
-    <link rel="shortcut icon" href="{{ asset('/images/favicon.ico') }}" />	
+    <link rel="shortcut icon" href="{{ asset('/images/favicon.ico') }}" />
+    <link href="{{ route('job.index', ['_format' => 'atom']) }}" rel="alternate" title="RSS" type="application/rss+xml"/>
   </head>
   <body>
     <div id="container">

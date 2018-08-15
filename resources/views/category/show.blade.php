@@ -3,7 +3,7 @@
 @section('content')
   <div class="category">
     <div class="feed">
-      <a href="{{ route('category.show', [$category->id, $category->slug]) }}">Feed</a>
+      <a href="{{ route('category.show', ['id' => $category->id, 'slug'=> $category->slug]) }}">Feed</a>
     </div>
     <h1>{{ $category->name }}</h1>
   </div>
