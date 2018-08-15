@@ -144,6 +144,13 @@ class JobController extends Controller
      */
     public function destroy($token)
     {
+        $job = Job::where('token', $token)->first();
+        if (!$job) {
+            return redirect()->route('job.index')->with('status', 'Unable to find the Job.');
+        }
+        
+        $job->delete();
+        
         return redirect()->route('job.index')->with('status', 'Job deleted!');
     }
 
