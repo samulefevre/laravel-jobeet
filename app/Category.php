@@ -22,7 +22,7 @@ class Category extends Model
     
     public function scopeGetWithJobs($query)
     {
-        return $query->leftJoin('jobs', 'categories.id', '=', 'jobs.category_id')->select('categories.id', 'categories.name')->where('jobs.expires_at', '>', Carbon::now())->groupBy('categories.id')->get();
+        return $query->leftJoin('jobs', 'categories.id', '=', 'jobs.category_id')->select('categories.id', 'categories.name')->where('is_activated', 1)->where('jobs.expires_at', '>', Carbon::now())->groupBy('categories.id')->get();
     }
 
     public function setActiveJobs($jobs)

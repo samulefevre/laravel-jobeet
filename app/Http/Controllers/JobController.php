@@ -67,7 +67,12 @@ class JobController extends Controller
         $job->email = $request->get('email');
         $job->save();
  
-        return redirect()->route('job.index')->with('status', 'Job created!');
+        return redirect()->action('JobController@preview', [
+            'token' => $job->token,
+            'company' => str_slug($job->company),
+            'location' => str_slug($job->location),            
+            'position' => str_slug($job->position)
+        ])->with('status', 'Job created!');
     }
 
     /**
@@ -120,8 +125,8 @@ class JobController extends Controller
         $job->email = $request->get('email');
         $job->save();
                 
-        return redirect()->action('JobController@show', [
-            'id' => $job->id,
+        return redirect()->action('JobController@preview', [
+            'token' => $job->token,
             'company' => str_slug($job->company),
             'location' => str_slug($job->location),            
             'position' => str_slug($job->position)
@@ -131,12 +136,12 @@ class JobController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  string  $token
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($token)
     {
-        //
+        return redirect()->route('job.index')->with('status', 'Job deleted!');
     }
 
     /**
@@ -152,9 +157,11 @@ class JobController extends Controller
         return view('job/show', compact('job'));
     }
 
-    public function publish()
+    public function publish($token)
     {
-
+        $job = Job::where('token', $token)->first();
+        
+        return redirect()->back()->with('status', 'Your job is now online for 30 days.');        
     }
 
     public function search(Request $request)
@@ -180,6 +187,6 @@ class JobController extends Controller
         // Return the error message if no keywords existed
         return redirect()->route('job.index')->with('status', $error);
         
-    }
+    }    
     
 }

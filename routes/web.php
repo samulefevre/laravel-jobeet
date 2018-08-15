@@ -24,7 +24,7 @@ Route::get('/job/{id}/{company}/{location}/{position}', 'JobController@show')->n
 Route::get('/search/', 'JobController@search');
 Route::get('/job/', 'JobController@list');
 Route::get('/job/{token}/{company}/{location}/{position}', 'JobController@preview')->name('job.preview');
-Route::get('/job/publish/', 'JobController@publish');
+Route::post('/job/{token}/publish/', 'JobController@publish')->name('job.publish');
 
 Auth::routes();
 
