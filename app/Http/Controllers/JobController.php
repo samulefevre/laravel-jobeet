@@ -199,31 +199,42 @@ class JobController extends Controller
         }
         $job->save();                
         $expires_at = Carbon::now()->addDays(30)->toFormattedDateString();
-        return redirect()->back()->with('status', 'Your job validity has been extended until '.$expires_at.'.' );         
+        return redirect()->back()->with('status', 'Your job validity has been extended until '.$expires_at.'.' );
     }
 
     public function search(Request $request)
     {
         // First we define the error message we are going to show if no keywords
         // existed or if no results found.
-        $error = 'No results found, please try with different keywords.';        
+        $error = 'No results found, please try with different keywords.';
+
         // Making sure the user entered a keyword.
         if($request->has('query')) {
+            $query = $request->get('query');
 
-            // Using the Laravel Scout syntax to search the jobs table.
-            $jobs = Job::search($request->get('query'))->where('is_activated', 1)->paginate(20);           
+            if($query == '') {
+                $jobs = Job::where('is_activated', 1)->paginate(20);
+            } else {
+                $jobs = Job::where('is_activated', 1)->where('location', $query)->orWhere('position', $query)->orWhere('company', $query)->paginate(20);
+            }
 
+            
             // If there are results return them, if none, return the error message.
             if($jobs->count()) {
-                return view('job/search', compact('q','jobs'));
+                return view('job/search', compact('query', 'jobs'));
             } else {
-                return redirect()->route('job.index', compact('q'))->with('status', $error);
+                // Return the error message if no keywords existed
+                return redirect()->route('job.index')->with('status', $error);
             }
 
         }
-
         // Return the error message if no keywords existed
         return redirect()->route('job.index')->with('status', $error);
+
+
+        
+
+        
         
     }    
     
